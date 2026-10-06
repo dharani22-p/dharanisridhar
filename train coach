@@ -1,0 +1,155 @@
+image.png
+#include <iostream>image.png
+using namespace std;
+
+struct Node {
+    int coach;
+    Node* next;
+};
+
+Node* head = NULL;
+
+// 1. Add coach at beginning
+void addBeginning(int coach) {
+    Node* newNode = new Node();
+
+    newNode->coach = coach;
+    newNode->next = head;
+
+    head = newNode;
+}
+
+// 2. Add coach at end
+void addEnd(int coach) {
+    Node* newNode = new Node();
+
+    newNode->coach = coach;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
+// 3. Remove a coach
+void removeCoach(int coach) {
+    if (head == NULL) {
+        cout << "Train is empty!" << endl;
+        return;
+    }
+
+    // If first coach has to be removed
+    if (head->coach == coach) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+
+        cout << "Coach removed." << endl;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != NULL &&
+           temp->next->coach != coach) {
+        temp = temp->next;
+    }
+
+    if (temp->next == NULL) {
+        cout << "Coach not found." << endl;
+    } else {
+        Node* deleteNode = temp->next;
+        temp->next = deleteNode->next;
+        delete deleteNode;
+
+        cout << "Coach removed." << endl;
+    }
+}
+
+// 4. Display all coaches
+void display() {
+    if (head == NULL) {
+        cout << "Train is empty!" << endl;
+        return;
+    }
+
+    Node* temp = head;
+
+    cout << "Train: ";
+
+    while (temp != NULL) {
+        cout << "Coach " << temp->coach << " -> ";
+        temp = temp->next;
+    }
+
+    cout << "NULL" << endl;
+}
+
+int main() {
+    // Initial train
+    addEnd(1);
+    addEnd(2);
+    addEnd(3);
+    addEnd(4);
+
+    int choice, coach;
+
+    do {
+        cout << "\n--- Train Coach List ---" << endl;
+        cout << "1. Add coach at beginning" << endl;
+        cout << "2. Add coach at end" << endl;
+        cout << "3. Remove a coach" << endl;
+        cout << "4. Display all coaches" << endl;
+        cout << "5. Exit" << endl;
+
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+
+        case 1:
+            cout << "Enter coach number: ";
+            cin >> coach;
+            addBeginning(coach);
+            break;
+
+        case 2:
+            cout << "Enter coach number: ";
+            cin >> coach;
+            addEnd(coach);
+            break;
+
+        case 3:
+            cout << "Enter coach number to remove: ";
+            cin >> coach;
+            removeCoach(coach);
+            break;
+
+        case 4:
+            display();
+            break;
+
+        case 5:
+            cout << "Program ended." << endl;
+            break;
+
+        default:
+            cout << "Invalid choice!" << endl;
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}image.png
+
+
+Displaying image.png.
