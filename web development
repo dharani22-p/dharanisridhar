@@ -1,0 +1,53 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+bool isValid(string html) {
+    stack<string> s;
+
+    for (int i = 0; i < html.length(); i++) {
+
+        if (html[i] == '<') {
+
+            int j = html.find('>', i);
+
+            if (j == string::npos)
+                return false;
+
+            string tag = html.substr(i + 1, j - i - 1);
+
+            // Closing tag
+            if (tag[0] == '/') {
+                string closeTag = tag.substr(1);
+
+                if (s.empty() || s.top() != closeTag)
+                    return false;
+
+                s.pop();
+            }
+            // Opening tag
+            else {
+                s.push(tag);
+            }
+
+            i = j;
+        }
+    }
+
+    return s.empty();
+}
+
+int main() {
+    string html;
+
+    cout << "Enter HTML tags: ";
+    getline(cin, html);
+
+    if (isValid(html))
+        cout << "Valid HTML nesting" << endl;
+    else
+        cout << "Invalid HTML nesting" << endl;
+
+    return 0;
+}image.png
