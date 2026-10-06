@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 10
+
+class BrowserHistory {
+    string history[MAX];
+    int top;
+
+public:
+    BrowserHistory() {
+        top = -1;
+    }
+
+    void visit(string page) {
+        if (top == MAX - 1) {
+            cout << "History is full!\n";
+        } else {
+            history[++top] = page;
+            cout << "Visited: " << page << endl;
+        }
+    }
+
+    void back() {
+        if (top == -1) {
+            cout << "No previous page.\n";
+        } else {
+            cout << "Back from: " << history[top] << endl;
+            top--;
+        }
+    }
+
+    void displayTop() {
+        if (top == -1) {
+            cout << "No page in history.\n";
+        } else {
+            cout << "Current top page: " << history[top] << endl;
+        }
+    }
+
+    void displayHistory() {
+        if (top == -1) {
+            cout << "History is empty.\n";
+        } else {
+            cout << "\nBrowser History:\n";
+            for (int i = top; i >= 0; i--) {
+                cout << history[i] << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    BrowserHistory browser;
+
+    browser.visit("google.com");
+    browser.visit("youtube.com");
+    browser.visit("abc.com");
+    browser.visit("facebook.com");
+
+    browser.displayHistory();
+
+    cout << "\nPressing Back...\n";
+    browser.back();
+
+    cout << "\nPressing Back again...\n";
+    browser.back();
+
+    browser.displayTop();
+
+    return 0;
+}
