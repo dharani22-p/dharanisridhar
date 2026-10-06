@@ -1,0 +1,73 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main()
+{
+    queue<int> orders;
+    int choice;
+    int orderID = 101;
+    int completedOrders = 0;
+
+    do
+    {
+        cout << "\n--- Restaurant Order System ---\n";
+        cout << "1. Get Order\n";
+        cout << "2. Complete Order\n";
+        cout << "3. Print Current Order ID\n";
+        cout << "4. Print Total Number of Orders\n";
+        cout << "5. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            orders.push(orderID);
+            cout << "Order Added ID: " << orderID << endl;
+            orderID++;
+            break;
+
+        case 2:
+            if (!orders.empty())
+            {
+                cout << "Completed Order ID: "
+                     << orders.front() << endl;
+                orders.pop();
+                completedOrders++;
+            }
+            else
+            {
+                cout << "No orders available.\n";
+            }
+            break;
+
+        case 3:
+            if (!orders.empty())
+            {
+                cout << "Current Order ID: "
+                     << orders.front() << endl;
+            }
+            else
+            {
+                cout << "No current orders.\n";
+            }
+            break;
+
+        case 4:
+            cout << "Total number of completed orders: "
+                 << completedOrders << endl;
+            break;
+
+        case 5:
+            cout << "Program ended.\n";
+            break;
+
+        default:
+            cout << "Invalid choice.\n";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
